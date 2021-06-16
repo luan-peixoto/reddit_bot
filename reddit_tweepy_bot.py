@@ -31,6 +31,7 @@ def store_text(text, file_name):
 
 
 def download_img(url):
+    print('Downloading image...')
     reddit_tweepy_bot_directory = os.path.dirname(__file__)
     short_directory = "image\imgdownload.jpg"
     abs_file_path = os.path.join(reddit_tweepy_bot_directory, short_directory)
@@ -42,6 +43,7 @@ def download_img(url):
             if not block:
                 break
             handle.write(block)
+    print('Image downloaded.')
     return abs_file_path
 
 
@@ -63,12 +65,14 @@ def check_reddit(post, file_name, tweepy_api):
                 author = post.author
                 link = 'http://redd.it/' + id_link
                 img = post.url
+                print("It's a legit post, trying to tweet...")
                 try:
                     post_tweet(tweepy_api, author, link, img)
+                    print('Post tweeted.')
                 except tweepy.TweepError as e:
                     print("Couldn't post image, something went wrong")
                     print(e.reason)
-
+                print('Sleeping for 300 seconds...')
                 time.sleep(300)
             else:
                 print('Not an image, skipping...')
