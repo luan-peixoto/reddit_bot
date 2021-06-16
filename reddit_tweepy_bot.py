@@ -47,7 +47,7 @@ def download_img(url):
 
 def post_tweet(tweepy_api, author, link, img):
     img_path = download_img(img)
-    tweepy_api.update_with_media(img_path, status=link + ' - ' + author)
+    tweepy_api.update_with_media(img_path, status=str(link) + ' - ' + str(author))
     os.remove(img_path)
 
 
